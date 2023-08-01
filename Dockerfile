@@ -1,5 +1,13 @@
-FROM eclipse-temurin:17-jre-alpine
-RUN mkdir -p /ctk
-COPY target/ctk_consumer-*.jar /ctk/ctk_consumer.jar
-WORKDIR /ctk/
-ENTRYPOINT java -jar ctk_consumer.jar
+FROM openjdk:17-ea-33-jdk-buster AS builder
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJar
+
+FROM openjdk:17-ea-33-jdk-buster
+
+COPY --from=builder build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar", "-Dspring.profiles.active=prod", "/app.jar"]
