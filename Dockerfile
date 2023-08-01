@@ -7,5 +7,6 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
+FROM adoptopenjdk/openjdk:17-ea-33-jdk-buster
 COPY --from=builder build/libs/*.jar app.jar
 ENTRYPOINT ["java","-jar", "-Dspring.profiles.active=prod", "/app.jar"]
