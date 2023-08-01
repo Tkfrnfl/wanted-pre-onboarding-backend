@@ -2,7 +2,7 @@ version: '3'
 services:
 
   web:
-    container_name: web
+    container_name: tkfrnfl/wanted
     image: tkfrnfl/wanted
     expose:
       - "8080"
