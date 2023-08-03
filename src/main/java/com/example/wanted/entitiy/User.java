@@ -13,12 +13,13 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId; // 유저 고유 번호
 
-    @Column(/*nullable = false,*/ unique = true)
+    @Column(/*nullable = false,*/ unique = true,name = "email")
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true,name = "password")
     private String password;
 
 

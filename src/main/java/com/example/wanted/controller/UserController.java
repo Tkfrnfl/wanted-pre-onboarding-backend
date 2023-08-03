@@ -22,6 +22,6 @@ public class UserController {
     @GetMapping ("/signIn")
     public ResponseEntity<String> signIn(@RequestBody  SignUpForm signUpForm) throws Exception {
 
-        return ResponseEntity.ok(userService.signUpService(signUpForm));
+        return ResponseEntity.ok(userService.signInService(signUpForm));
     }
 }

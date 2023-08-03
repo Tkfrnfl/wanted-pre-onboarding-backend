@@ -3,6 +3,7 @@ package com.example.wanted.service;
 import com.example.wanted.config.AesKeyConfig;
 import com.example.wanted.dto.SignUpForm;
 import com.example.wanted.entitiy.User;
+import com.example.wanted.jwt.JwtTokenProvider;
 import com.example.wanted.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,9 @@ import javax.crypto.spec.SecretKeySpec;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private final JwtTokenProvider jwtTokenProvider;
     public static String alg = "AES/CBC/PKCS5Padding";
     @Autowired
     private final AesKeyConfig aesKeyConfig;
@@ -46,6 +50,7 @@ public class UserService {
 
     @Transactional
     public String signInService(SignUpForm signUpForm) throws Exception {
+        iv=aesKeyConfig.getKey().substring(0, 16);
         String formCheck=inputCheck(signUpForm);
         if(formCheck=="정상"){
             User user=new User();
@@ -53,8 +58,14 @@ public class UserService {
             user.setEmail(signUpForm.getEmail());
             String aesPassword=encrypt(signUpForm.getPassword(),iv) ; //aes 암호화
             user.setPassword(aesPassword);
-            userRepository.save(user);
-            return "회원가입 완료";
+            if(userRepository.existsByEmailAndPassword(signUpForm.getEmail(),user.getPassword())){
+                String createToken= jwtTokenProvider.createToken(signUpForm.getEmail());
+                return  createToken;
+            }
+            else{
+                return "회원정보 불일치";
+            }
+
         }
         else {
             return formCheck;
