@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/posting")
@@ -33,6 +34,20 @@ public class PostingController {
 
         return ResponseEntity.ok(postingService.getAllPostingService(1,10));
     }
+    @GetMapping("/getOnePosting")
+    public ResponseEntity<Posting> getOnePosting(@RequestBody Map<String, String> postingId) throws Exception {
 
+        return ResponseEntity.ok(postingService.getOnePostingService(Long.parseLong( postingId.get("postingId"))));
+    }
+    @PatchMapping ("/patchPosting")
+    public ResponseEntity<Posting> patchPosting(@RequestBody Map<String, String> postingId,@AuthenticationPrincipal User user) throws Exception {
+
+        return ResponseEntity.ok(postingService.patchPostingService(Long.parseLong( postingId.get("postingId")), postingId.get("detail"),user.getUsername()));
+    }
+    @DeleteMapping ("/deletePosting")
+    public ResponseEntity<String> deletePosting(@RequestBody Map<String, String> postingId,@AuthenticationPrincipal User user) throws Exception {
+
+        return ResponseEntity.ok(postingService.deletePostingService(Long.parseLong( postingId.get("postingId")),user.getUsername()));
+    }
 
 }

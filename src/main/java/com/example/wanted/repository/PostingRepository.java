@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface PostingRepository extends JpaRepository<Posting,Long>
 {
-    Page<Posting> findAll(Pageable pageable);
+    Posting findPostingByPostId(Long postId);
+    Posting findPostingByPostIdAndUserId(Long postId,Long userId);
+
+    void deletePostingByPostIdAndUserId(Long postId,Long userId);
 }
