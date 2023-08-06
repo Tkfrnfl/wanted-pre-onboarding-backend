@@ -41,7 +41,7 @@ public class UserService {
             String aesPassword=encrypt(signUpForm.getPassword(),iv) ; //aes 암호화
             user.setPassword(aesPassword);
             userRepository.save(user);
-            return "회원가입 완료";
+            return "회원가입 성공";
         }
         else {
             return formCheck;
