@@ -62,7 +62,7 @@ public class SecurityConfig  {
 
         http.authorizeRequests()
 
-                .requestMatchers("/api/users/**","/api/posting/getAllPosting/**","/api/posting/getOnePosting/**").permitAll()
+                .requestMatchers("/api/users/signUp","api/users/signIn","/api/posting/getAllPosting").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors((cors)->cors.disable())

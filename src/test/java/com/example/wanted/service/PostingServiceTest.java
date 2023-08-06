@@ -37,36 +37,4 @@ public class PostingServiceTest {
         Assertions.assertThat(when.getTotalPages()).isEqualTo(1);
     }
 
-    @DisplayName("게시글 특정 id로 조회")
-    @Test
-    void getOnePostingTest() throws Exception {
-        //given
-
-        //when
-        Posting when=postingService.getOnePostingService(Long.parseLong("1"));
-        //then
-        Assertions.assertThat(when.getUserId()).isEqualTo(1);
-    }
-
-    @DisplayName("게시글 특정 id로 수정")
-    @Test
-    void  patchPostingTest() throws Exception {
-        //given
-
-        //when
-        Posting when=postingService.patchPostingService(Long.parseLong("1"),"edit","124@");
-        //then
-        Assertions.assertThat(when.getDetail()).isEqualTo("edit");
-    }
-
-    @DisplayName("게시글 특정 id로 삭제")
-    @Test
-    void  deletePostingTest() throws Exception {
-        //given
-
-        //when
-        String when=postingService.deletePostingService(Long.parseLong("1"),"124@");
-        //then
-        Assertions.assertThat(when).isEqualTo("삭제 완료");
-    }
 }

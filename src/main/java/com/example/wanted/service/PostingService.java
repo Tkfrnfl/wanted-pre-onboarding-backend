@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,34 +43,6 @@ public class PostingService {
     public Page<Posting> getAllPostingService(int page,int size){
         Pageable pageable= PageRequest.of(page,size);
         Page<Posting> postings=postingRepository.findAll(pageable);
-        List<Posting> pageToListNewItems = new ArrayList<Posting>();
-
-        if(postings!=null && postings.hasContent()){
-            pageToListNewItems=postings.getContent();
-        }
-       // System.out.println(pageToListNewItems.get(0).getPostId());
         return postings;
-    }
-
-    @Transactional
-    public Posting getOnePostingService(Long postingId){
-        System.out.println(postingRepository.findPostingByPostId(postingId));
-        return postingRepository.findPostingByPostId(postingId);
-    }
-    @Transactional
-    public Posting patchPostingService(Long postingId,String detail,String email){
-
-        User user=userRepository.findUserByEmail(email);
-        Posting posting= postingRepository.findPostingByPostIdAndUserId(postingId, user.getUserId());
-        posting.setDetail(detail);
-
-        return posting;
-    }
-    @Transactional
-    public String deletePostingService(Long postingId,String email){
-        User user=userRepository.findUserByEmail(email);
-        postingRepository.deletePostingByPostIdAndUserId(postingId, user.getUserId());
-
-        return "삭제 완료";
     }
 }
