@@ -32,3 +32,5 @@ https://drive.google.com/file/d/1yfEEgyVrMmIhAOQwcThlBfK6PuvH2ZAF/view?usp=shari
 ### API 명세
 [api.pdf](https://github.com/Tkfrnfl/wanted-pre-onboarding-backend/files/12293500/api.pdf)
 
+
+** 비용문제로 11:00~ 19:00 만 서버를 열어두고있습니다.
