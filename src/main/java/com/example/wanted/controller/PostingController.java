@@ -2,6 +2,7 @@ package com.example.wanted.controller;
 
 
 import com.example.wanted.Impl.UserDetailsImpl;
+import com.example.wanted.dto.GetAllPostingForm;
 import com.example.wanted.dto.PostingForm;
 import com.example.wanted.dto.SignUpForm;
 import com.example.wanted.entitiy.Posting;
@@ -29,10 +30,11 @@ public class PostingController {
         return ResponseEntity.ok(postingService.newPostingService(user.getUsername(),postingForm.getDetail()));
     }
 
-    @GetMapping("/getAllPosting")
-    public ResponseEntity<Page<Posting>> getAllPosting() throws Exception {
 
-        return ResponseEntity.ok(postingService.getAllPostingService(1,10));
+    @GetMapping("/getAllPosting")
+    public ResponseEntity<Page<Posting>> getAllPosting(@RequestBody GetAllPostingForm getAllPostingForm) throws Exception {
+
+        return ResponseEntity.ok(postingService.getAllPostingService(getAllPostingForm.getPage(),getAllPostingForm.getSize()));
     }
     @GetMapping("/getOnePosting")
     public ResponseEntity<Posting> getOnePosting(@RequestBody Map<String, String> postingId) throws Exception {
