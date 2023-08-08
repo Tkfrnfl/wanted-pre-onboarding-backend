@@ -1,10 +1,20 @@
 version: '3'
 services:
 
-  web:
-    container_name: web
+  application:
+    container_name: webServer
     image: tkfrnfl/wanted
     expose:
       - "8080"
     ports:
       - "8080:8080"
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://database-1.cvkpmdazwcsl.ap-northeast-2.rds.amazonaws.com:3306/mydb
+        SPRING_DATASOURCE_USERNAME: admin
+        SPRING_DATASOURCE_PASSWORD: Han456852*
+        AESKEY: "0123456789101112"
+        JWT_SECRET: "VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa"
+    volumes:
+      - ./db/data:/var/lib/mysql
+    restart: always
+
